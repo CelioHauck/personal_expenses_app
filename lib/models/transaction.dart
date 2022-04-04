@@ -25,7 +25,7 @@ class Transaction {
   }
 
   String getAmountWithCurrency() {
-    return 'R\$: $_amount';
+    return 'R\$: ${_amount.toStringAsFixed(2)}';
   }
 
   String getDate() {
