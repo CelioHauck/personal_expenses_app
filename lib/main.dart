@@ -61,16 +61,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final List<Transaction> _userTransactions = [
-    Transaction(
-      id: 't1',
-      title: 'Assinatura FFXIV',
-      amount: 30.50,
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Pizza',
-      amount: 50,
-    ),
+    // Transaction(
+    //   id: 't1',
+    //   title: 'Assinatura FFXIV',
+    //   amount: 30.50,
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'Pizza',
+    //   amount: 50,
+    // ),
   ];
 
   void _addNewTransaction(String title, double amount) {
@@ -102,11 +102,11 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Card(
+            const Card(
               // ignore: avoid_unnecessary_containers
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
-                child: const Text('Graficos'),
+                child: Text('Graficos'),
               ),
               elevation: 5,
             ),
