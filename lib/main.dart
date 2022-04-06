@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:personal_expenses_app/widgets/chart.dart';
 import 'widgets/new_transaction.dart';
 
 import 'models/transaction.dart';
@@ -85,6 +86,18 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<Transaction> get _recentTransactions {
+    return _userTransactions
+        .where(
+          (element) => element.getDate().isAfter(
+                DateTime.now().subtract(
+                  const Duration(days: 7),
+                ),
+              ),
+        )
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,13 +115,8 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Card(
-              // ignore: avoid_unnecessary_containers
-              child: SizedBox(
-                width: double.infinity,
-                child: Text('Graficos'),
-              ),
-              elevation: 5,
+            Chart(
+              transactions: _recentTransactions,
             ),
             TransactionList(
               userTransactions: _userTransactions,

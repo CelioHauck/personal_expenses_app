@@ -63,7 +63,7 @@ class TransactionList extends StatelessWidget {
                           Text(_userTransactions[index].getTitle(),
                               style: Theme.of(context).textTheme.headline6),
                           Text(
-                            _userTransactions[index].getDate(),
+                            _userTransactions[index].getDateFormat(),
                             style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 14,

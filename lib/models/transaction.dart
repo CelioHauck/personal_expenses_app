@@ -28,10 +28,19 @@ class Transaction {
     return 'R\$: ${_amount.toStringAsFixed(2)}';
   }
 
-  String getDate() {
+  String getDateFormat() {
     var format = DateFormat.yMMMEd('pt_BR');
     var dateString = format.format(_date);
     return dateString;
+  }
+
+  DateTime getDate() {
+    return _date;
+  }
+
+  String getDayDate() {
+    final format = DateFormat.E('pt_BR');
+    return format.format(_date);
   }
 
   @override
