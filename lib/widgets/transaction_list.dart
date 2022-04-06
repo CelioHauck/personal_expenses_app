@@ -34,46 +34,71 @@ class TransactionList extends StatelessWidget {
           : ListView.builder(
               itemBuilder: (ctx, index) {
                 return Card(
-                  child: Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 15,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.primary,
-                            width: 2,
-                          ),
-                        ),
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                          _userTransactions[index].getAmountWithCurrency(),
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.bold,
+                  elevation: 5,
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: const EdgeInsets.all(3),
+                        child: FittedBox(
+                          child: Text(
+                            _userTransactions[index].getAmountWithCurrency(),
                           ),
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(_userTransactions[index].getTitle(),
-                              style: Theme.of(context).textTheme.headline6),
-                          Text(
-                            _userTransactions[index].getDateFormat(),
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
+                    title: Text(
+                      _userTransactions[index].getTitle(),
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    subtitle: Text(
+                      _userTransactions[index].getDateFormat(),
+                    ),
                   ),
                 );
+                // return Card(
+                //   child: Row(
+                //     children: [
+                //       Container(
+                //         margin: const EdgeInsets.symmetric(
+                //           vertical: 10,
+                //           horizontal: 15,
+                //         ),
+                //         decoration: BoxDecoration(
+                //           border: Border.all(
+                //             color: Theme.of(context).colorScheme.primary,
+                //             width: 2,
+                //           ),
+                //         ),
+                //         padding: const EdgeInsets.all(10),
+                //         child: Text(
+                //           _userTransactions[index].getAmountWithCurrency(),
+                //           style: TextStyle(
+                //             fontSize: 18,
+                //             color: Theme.of(context).colorScheme.primary,
+                //             fontWeight: FontWeight.bold,
+                //           ),
+                //         ),
+                //       ),
+                //       Column(
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         children: [
+                //           Text(_userTransactions[index].getTitle(),
+                //               style: Theme.of(context).textTheme.headline6),
+                //           Text(
+                //             _userTransactions[index].getDateFormat(),
+                //             style: const TextStyle(
+                //               color: Colors.grey,
+                //               fontSize: 14,
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ],
+                //   ),
+                // );
               },
               itemCount: _userTransactions.length,
             ),

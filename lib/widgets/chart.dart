@@ -15,7 +15,7 @@ class Chart extends StatelessWidget {
     return List.generate(7, (index) {
       final weekDay = DateTime.now().subtract(
         Duration(
-          days: index,
+          days: index + 1,
         ),
       );
 
@@ -27,7 +27,7 @@ class Chart extends StatelessWidget {
         }
         return 0.0;
       });
-      return {'day': day.substring(0, 1).toUpperCase(), 'amount': sumAll};
+      return {'day': day, 'amount': sumAll};
     });
   }
 
@@ -46,7 +46,7 @@ class Chart extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: groupedTransactionValues.map((data) {
+          children: groupedTransactionValues.reversed.map((data) {
             return Flexible(
               fit: FlexFit.tight,
               child: ChartBar(
