@@ -55,66 +55,73 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              controller: _titleController,
-              onSubmitted: (_) => _submitData(),
-              decoration: const InputDecoration(
-                labelText: 'Titulo',
-              ),
-            ),
-            TextField(
-              controller: _amountController,
-              onSubmitted: (_) => _submitData(),
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(
-                labelText: 'Preço',
-              ),
-            ),
-            SizedBox(
-              height: 70,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      _selectDate != null
-                          ? 'Data escolhida: ${DateFormat.yMd('pt_BR').format(_selectDate as DateTime)}'
-                          : 'Nenhuma data selecionada',
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: _presentDataPicker,
-                    child: Text(
-                      'Escolha uma data',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ElevatedButton(
-              style: TextButton.styleFrom(
-                primary: Theme.of(context).colorScheme.primary,
-              ),
-              onPressed: _submitData,
-              child: Text(
-                'Adicionar compra',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.button?.color,
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10.0,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                controller: _titleController,
+                onSubmitted: (_) => _submitData(),
+                decoration: const InputDecoration(
+                  labelText: 'Titulo',
                 ),
               ),
-            ),
-          ],
+              TextField(
+                controller: _amountController,
+                onSubmitted: (_) => _submitData(),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                decoration: const InputDecoration(
+                  labelText: 'Preço',
+                ),
+              ),
+              SizedBox(
+                height: 70,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        _selectDate != null
+                            ? 'Data escolhida: ${DateFormat.yMd('pt_BR').format(_selectDate as DateTime)}'
+                            : 'Nenhuma data selecionada',
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: _presentDataPicker,
+                      child: Text(
+                        'Escolha uma data',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ElevatedButton(
+                style: TextButton.styleFrom(
+                  primary: Theme.of(context).colorScheme.primary,
+                ),
+                onPressed: _submitData,
+                child: Text(
+                  'Adicionar compra',
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.button?.color,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
