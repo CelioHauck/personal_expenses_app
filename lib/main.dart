@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:personal_expenses_app/widgets/chart.dart';
 import 'widgets/new_transaction.dart';
 
@@ -13,13 +13,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    initializeDateFormatting('pt_BR', null);
     return MaterialApp(
       title: 'Personal Expenses',
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: const [Locale('pt', 'BR')],
       // theme: ThemeData(primaryColor: Colors.amber, primarySwatch: Colors.amber),
       theme: ThemeData(
         primarySwatch: Colors.purple,
         fontFamily: 'Quicksand',
+        errorColor: Colors.red,
         textTheme: ThemeData.light().textTheme.copyWith(
               headline6: const TextStyle(
                 fontFamily: 'OpenSans',
@@ -75,10 +80,11 @@ class _MyHomePageState extends State<MyHomePage> {
     // ),
   ];
 
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount, DateTime date) {
     final newTx = Transaction(
       title: title,
       amount: amount,
+      date: date,
       id: DateTime.now().toString(),
     );
 
@@ -88,15 +94,20 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Transaction> get _recentTransactions {
-    return _userTransactions
-        .where(
-          (element) => element.getDate().isAfter(
-                DateTime.now().subtract(
-                  const Duration(days: 7),
-                ),
-              ),
-        )
-        .toList();
+    final result = _userTransactions.where(
+      (element) => element.getDate().isAfter(
+            DateTime.now().subtract(
+              const Duration(days: 7),
+            ),
+          ),
+    );
+    return result.toList();
+  }
+
+  void _removeTransaction(int hashCode) {
+    setState(() {
+      _userTransactions.removeWhere((element) => element.hashCode == hashCode);
+    });
   }
 
   @override
@@ -121,6 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TransactionList(
               userTransactions: _userTransactions,
+              onRemove: _removeTransaction,
             ),
           ],
         ),

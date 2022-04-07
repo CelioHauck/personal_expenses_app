@@ -3,9 +3,14 @@ import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> _userTransactions;
+  final void Function(int) _onRemove;
 
-  const TransactionList({Key? key, required List<Transaction> userTransactions})
-      : _userTransactions = userTransactions,
+  const TransactionList({
+    Key? key,
+    required List<Transaction> userTransactions,
+    required Function(int) onRemove,
+  })  : _userTransactions = userTransactions,
+        _onRemove = onRemove,
         super(key: key);
 
   @override
@@ -55,6 +60,13 @@ class TransactionList extends StatelessWidget {
                     ),
                     subtitle: Text(
                       _userTransactions[index].getDateFormat(),
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      color: Theme.of(context).errorColor,
+                      onPressed: () => _onRemove(
+                        _userTransactions[index].hashCode,
+                      ),
                     ),
                   ),
                 );

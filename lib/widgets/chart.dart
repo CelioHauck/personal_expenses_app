@@ -21,11 +21,15 @@ class Chart extends StatelessWidget {
 
       final day = DateFormat.E('pt_BR').format(weekDay);
 
-      double sumAll = _recentTransactions.fold(0, (value, element) {
-        if (element.getDayDate() == day) {
+      double sumAll = _recentTransactions.fold(0.0, (value, element) {
+        final elementDay = element.getDate();
+
+        if (elementDay.day == weekDay.day &&
+            elementDay.month == weekDay.month &&
+            elementDay.year == weekDay.year) {
           return value + element.getAmount();
         }
-        return 0.0;
+        return value;
       });
       return {'day': day, 'amount': sumAll};
     });
