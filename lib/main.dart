@@ -123,6 +123,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     return Scaffold(
       appBar: appBar,
+      // Se usar o SingleChildScrollView, n pode usar o expanded junto com o
+      // ListView
       body: SingleChildScrollView(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
