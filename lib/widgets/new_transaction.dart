@@ -56,13 +56,36 @@ class _NewTransactionState extends State<NewTransaction> {
                 labelText: 'Preço',
               ),
             ),
-            TextButton(
+            SizedBox(
+              height: 70,
+              child: Row(
+                children: [
+                  const Text('Nenhuma data selecionada'),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Escolha uma data',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ElevatedButton(
               style: TextButton.styleFrom(
-                primary: Colors.purple,
+                primary: Theme.of(context).colorScheme.primary,
               ),
               onPressed: _submitData,
-              child: const Text('Adicionar compra'),
-            )
+              child: Text(
+                'Adicionar compra',
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.button?.color,
+                ),
+              ),
+            ),
           ],
         ),
       ),
