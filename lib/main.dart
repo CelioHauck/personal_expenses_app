@@ -104,6 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return result.toList();
   }
 
+  bool _showChart = false;
+
   void _removeTransaction(int hashCode) {
     setState(() {
       _userTransactions.removeWhere((element) => element.hashCode == hashCode);
@@ -112,6 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final _isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     final appBar = AppBar(
       title: const Text('Personal Expenses'),
       actions: [
@@ -120,6 +124,17 @@ class _MyHomePageState extends State<MyHomePage> {
           icon: const Icon(Icons.add),
         )
       ],
+    );
+
+    final txListWidget = SizedBox(
+      height: (MediaQuery.of(context).size.height -
+              appBar.preferredSize.height -
+              MediaQuery.of(context).padding.top) *
+          0.7,
+      child: TransactionList(
+        userTransactions: _userTransactions,
+        onRemove: _removeTransaction,
+      ),
     );
     return Scaffold(
       appBar: appBar,
@@ -130,25 +145,44 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(
-              height: (MediaQuery.of(context).size.height -
-                      appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
-                  0.3,
-              child: Chart(
-                transactions: _recentTransactions,
+            if (_isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Mostrar graficos'),
+                  Switch(
+                      value: _showChart,
+                      onChanged: (value) {
+                        setState(() {
+                          _showChart = value;
+                        });
+                      }),
+                ],
               ),
-            ),
-            SizedBox(
-              height: (MediaQuery.of(context).size.height -
-                      appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
-                  0.7,
-              child: TransactionList(
-                userTransactions: _userTransactions,
-                onRemove: _removeTransaction,
+
+            if (!_isLandscape)
+              SizedBox(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.3,
+                child: Chart(
+                  transactions: _recentTransactions,
+                ),
               ),
-            ),
+            if (!_isLandscape) txListWidget,
+            if (_isLandscape)
+              _showChart
+                  ? SizedBox(
+                      height: (MediaQuery.of(context).size.height -
+                              appBar.preferredSize.height -
+                              MediaQuery.of(context).padding.top) *
+                          0.7,
+                      child: Chart(
+                        transactions: _recentTransactions,
+                      ),
+                    )
+                  : txListWidget,
             // Chart(
             //   transactions: _recentTransactions,
             // ),
