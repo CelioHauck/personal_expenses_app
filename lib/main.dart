@@ -165,7 +165,10 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Mostrar graficos'),
+                Text(
+                  'Mostrar graficos',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
                 Switch.adaptive(
                     activeColor: Theme.of(context).colorScheme.secondary,
                     value: _showChart,

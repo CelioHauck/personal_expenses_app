@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:personal_expenses_app/widgets/adapative_text_button.dart';
 
 class NewTransaction extends StatefulWidget {
   final void Function(String, double, DateTime) _onClick;
@@ -95,16 +99,10 @@ class _NewTransactionState extends State<NewTransaction> {
                             : 'Nenhuma data selecionada',
                       ),
                     ),
-                    TextButton(
-                      onPressed: _presentDataPicker,
-                      child: Text(
-                        'Escolha uma data',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                    ),
+                    AdapativeTextButton(
+                      onClick: _presentDataPicker,
+                      text: 'Escolha uma data',
+                    )
                   ],
                 ),
               ),
