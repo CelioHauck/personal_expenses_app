@@ -60,13 +60,26 @@ class TransactionList extends StatelessWidget {
                   subtitle: Text(
                     _userTransactions[index].getDateFormat(),
                   ),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    color: Theme.of(context).errorColor,
-                    onPressed: () => _onRemove(
-                      _userTransactions[index].hashCode,
-                    ),
-                  ),
+                  trailing: MediaQuery.of(context).size.width > 460
+                      ? TextButton.icon(
+                          onPressed: () => _onRemove(
+                            _userTransactions[index].hashCode,
+                          ),
+                          style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all<Color>(
+                              Theme.of(context).errorColor,
+                            ),
+                          ),
+                          icon: const Icon(Icons.delete),
+                          label: const Text('Clique para remover'),
+                        )
+                      : IconButton(
+                          icon: const Icon(Icons.delete),
+                          color: Theme.of(context).errorColor,
+                          onPressed: () => _onRemove(
+                            _userTransactions[index].hashCode,
+                          ),
+                        ),
                 ),
               );
               // return Card(
